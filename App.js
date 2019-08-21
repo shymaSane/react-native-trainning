@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import {  StyleSheet, Text, View, FlatList} from 'react-native';
+import {  StyleSheet, Text, View, SectionList} from 'react-native';
 
 
 //flat list rows:
-const rows = [
-  {id: 0, text: 'name'},
-  {id: 1, text: 'Email'},
-  {id: 2, text: 'Birth Date'},
-  {id: 3, text: 'Github Profile'},
-  {id: 4, text: 'Cmpany'},
-  {id: 5, text: 'Works'},
+const sections = [
+  {
+    id: 0,
+    title: 'Basic components',
+    data: [
+      {id: 0, text: 'Image'},
+      {id: 1, text: 'Camera'},
+      {id: 2, text: 'View'},
+      {id: 3, text: 'Text'},
+    ]
+  },{
+    id: 1,
+    title: 'Lists',
+    data: [
+      {id: 4, text: 'Flat'},
+      {id: 5, text: 'Section'},
+    ]
+  }
+  
 ]
 
 //extract the key
@@ -26,12 +38,22 @@ export default class App extends Component {
     )
   }
 
+  //render Section
+  renderSectionHeader = ({section}) => {
+    return (
+      <Text style={styles.header}>
+        {section.title}
+      </Text>
+    )
+  }
+
   render() {
     return (
-      <FlatList 
+      <SectionList 
         style = {styles.container}
-        data = {rows}
+        sections={sections}
         renderItem = {this.renderItem}
+        renderSectionHeader = {this.renderSectionHeader}
         keyExtractor = {extractKey}
       />
     );
@@ -50,6 +72,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'skyblue',
   },
-
-  
+  header: {
+    padding: 15,
+    marginBottom: 5,
+    backgroundColor: 'steelblue',
+    color: 'white',
+    fontWeight: 'bold',
+  },
 })

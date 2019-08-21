@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
-import {  StyleSheet, Text, View } from 'react-native';
+import {  StyleSheet, Text, View, FlatList} from 'react-native';
+
+
+//flat list rows:
+const rows = [
+  {id: 0, text: 'name'},
+  {id: 1, text: 'Email'},
+  {id: 2, text: 'Birth Date'},
+  {id: 3, text: 'Github Profile'},
+  {id: 4, text: 'Cmpany'},
+  {id: 5, text: 'Works'},
+]
+
+//extract the key
+const extractKey = ({id}) => id.toString();
 
 export default class App extends Component {
 
-  
+  //render list items 
+  renderItem = ({item}) => {
+    return (
+      <Text style = {styles.row}>
+        {item.text}
+      </Text>
+    )
+  }
 
   render() {
     return (
-      <View style = {styles.container}>
-        <View style = {styles.seq1}>
-          <Text style={{alignSelf: 'center', color: 'white'}}>Life Is Cool</Text>
-        </View>
-      </View>
+      <FlatList 
+        style = {styles.container}
+        data = {rows}
+        renderItem = {this.renderItem}
+        keyExtractor = {extractKey}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black'
+    flexGrow:1,
+    // justifyContent: 'center',
+    // alignContent: 'center'
   },
-  seq1: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'blue',
-    borderStyle: 'dotted',
-    borderColor: 'yellow',
-    borderWidth: 2,
-    borderRadius: 10,
-    opacity: 0.5
-  }
+  row: {
+    flex: 1,
+    marginBottom: 3,
+    padding: 20,
+    backgroundColor: 'skyblue',
+  },
+
+  
 })
